@@ -1,0 +1,13 @@
+package com.antony.logsTemperatureKafka;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LogsTemperatureKafkaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(LogsTemperatureKafkaApplication.class, args);
+	}
+
+}
