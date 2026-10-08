@@ -1,3 +1,17 @@
 spring:
   application:
     name: logsTemperatureKafka
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+  mongodb:
+    uri: mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:27017/${MONGO_DB}?authSource=admin
