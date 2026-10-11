@@ -1,17 +1,34 @@
 spring:
   application:
     name: logsTemperatureKafka
+
   config:
     import: optional:file:.env[.properties]
+
   datasource:
     url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: create-drop
+
   kafka:
     bootstrap-servers:
       - localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+    consumer:
+      group-id: temperature-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.antony.logsTemperatureKafka.producer.temperature
+        spring.json.value.default.type: com.antony.logsTemperatureKafka.producer.temperature.RTemperatureDto
+        spring.json.add.types.headers: false
+
   mongodb:
     uri: mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:27017/${MONGO_DB}?authSource=admin

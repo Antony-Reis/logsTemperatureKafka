@@ -2,13 +2,11 @@ package com.antony.logsTemperatureKafka.producer.temperature;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Component
 public class TemperatureProducer {
     private final KafkaTemplate<String, RTemperatureDto> kafkaTemplate;
     private final Sensor sensor;
@@ -23,15 +21,12 @@ public class TemperatureProducer {
     }
 
     @Scheduled(fixedDelay = 2, timeUnit = TimeUnit.SECONDS)
-    public void receivAndSendEvent(){
+    public void SendEvent(){
         RTemperatureDto event = sensor.simulateSensor();
 
-        System.out.println(event);
+        System.out.println("Enviando: " + event);
 
         sendTemperature(event);
     }
-
-
-
 
 }
